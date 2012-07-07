@@ -1,0 +1,26 @@
+{
+  "author": "",
+  "name": "9dials-frontend",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/grahamscott/9dials-frontend.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "express": "2.5.x",
+    "http-proxy": "0.8.x",
+    "stache": "0.1.x",
+    "walker": "1.0.x",
+    "underscore": "1.3.x"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

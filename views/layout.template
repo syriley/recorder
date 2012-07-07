@@ -1,0 +1,78 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Mega Guitar Tuner</title>
+  <meta name="description" content="A free online guitar tuner which automatically recognises which note you're playing and allows you to tune up quickly.">
+
+  <meta name="viewport" content="width=device-width">
+  
+  <link rel="stylesheet" media="screen" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/controls.css">
+  <link rel="stylesheet" href="/css/container.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="/lib/jquery-1.7.1.min.js"><\/script>')</script>
+
+  <script src="/lib/modernizr-2.5.2.min.js"></script>
+  <script src="/lib/underscore.js"></script>
+  <script src="/lib/backbone.js"></script>
+  <script src="/lib/async.js"></script>
+  <script src="/lib/mustache.js"></script>
+  <script src="/lib/backbone.shortcuts.js"></script>
+  <script src="/lib/bootstrap-modal.js"></script>
+  
+  <script>
+    var require = {
+        baseUrl:  '/',
+        paths:  {
+            'js':  'lib/requirejs/js',
+            'css':  'lib/requirejs/css',
+            'order':  'lib/requirejs/order',
+            'mustache':  'lib/requirejs/mustache'
+        }
+    };
+  </script>
+  <script data-main="/src/main.js" src="/lib/require.js"></script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31220344-1']);
+  _gaq.push(['_setDomainName', '9dials.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+  <!--facebook SDK-->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+  
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+  <header>
+  </header>
+  <div id="main" role="main">
+      {{{yield}}}
+  </div>
+  <footer class="footer">
+    More tools and apps to come. If you like what we're doing, or something's not quite right, please let us know!<br />
+    <a href="http://www.9dials.com"> www.9dials.com</a> | <a href="mailto:contact@9dials.com">contact@9dials.com</a>
+  </footer>
+</body>
+</html>

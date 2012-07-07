@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+    <link rel="stylesheet" href="/test/lib/mocha.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <script src="/lib/jquery.event.drag-2.0.js"></script>
+    <script src="/lib/modernizr-2.5.2.min.js"></script>
+    <script src="/lib/underscore.js"></script>
+    <script src="/lib/backbone.js"></script>>
+    <script src="/lib/backbone.shortcuts.js"></script>
+    <script src="/lib/raphael.min.js"></script>
+
+    <script src="/test/lib/mocha.js"></script>
+    <script src="/test/lib/sinon.js"></script>
+    <script src="/test/lib/expectations.js"></script>
+
+    <script>
+    mocha.setup('bdd');
+    var require = {
+      baseUrl: '/',
+      paths: {
+          'js': 'lib/requirejs/js',
+          'css': 'lib/requirejs/css',
+          'order': 'lib/requirejs/order',
+          'mustache': 'lib/requirejs/mustache'
+      }
+    };
+    </script>
+
+    <script src="/lib/require.js"></script>
+    <script>
+      require([
+        {{#tests}}
+        '/{{.}}',
+        {{/tests}}
+        ''
+        ],
+      function(){
+          "use strict";
+          mocha.run();
+      });
+    </script>
+</head>
+<body>
+    <div id="mocha"></div>
+</body>
+</html>

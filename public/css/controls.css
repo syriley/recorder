@@ -1,0 +1,173 @@
+.guitarTuner{
+	top:15px;
+	background-image: url('/images/guitar-tuner.jpg');
+	background-repeat: no-repeat;
+	background-size: 600px 600px;
+	margin:40px auto;
+	width: 600px;
+	height: 600px;
+	position: relative;
+}
+
+.guitarTuner .sharp {
+	display: none;
+	background-image: url('/images/sharp.png');
+	background-repeat: no-repeat;
+	position:absolute;
+	top:6.7%;
+	left:59.6%;
+	height: 35px;
+	width:45px;
+	background-size: 60% 60%;
+}
+
+.guitarTuner .flat {
+	display: none;
+	background-image: url('/images/flat.png');
+	background-repeat: no-repeat;
+	position:absolute;
+	top:6.5%;
+	left:35.8%;
+	height: 35px;
+	width:45px;
+	background-size: 60% 60%;
+}
+
+.guitarTuner .light{
+	display: none;
+	background-repeat: no-repeat;
+	position:absolute;
+	background-size: 60% 60%;
+	height: 45px;
+	width:40px;
+}
+
+.guitarTuner .l1 {
+	background-image: url('/images/l1.png');
+	top:13.8%;
+	left:29.7%;
+}
+
+.guitarTuner .l2 {
+	background-image: url('/images/l2.png');
+	top:13.2%;
+	left:31.5%;
+}
+
+.guitarTuner .l3 {
+	background-image: url('/images/l3.png');
+	top:12.4%;
+	left:33.3%;
+}
+
+.guitarTuner .l4 {
+	background-image: url('/images/l4.png');
+	top:11.8%;
+	left:35.1%;
+}
+
+.guitarTuner .l5 {
+	background-image: url('/images/l5.png');
+	top:11.2%;
+	left:37.0%;
+}
+
+.guitarTuner .l6 {
+	background-image: url('/images/l6.png');
+	top:10.8%;
+	left:38.9%;
+}
+
+.guitarTuner .l7 {
+	background-image: url('/images/l7.png');
+	top:10.5%;
+	left:40.8%;
+}
+
+.guitarTuner .l8 {
+	background-image: url('/images/l8.png');
+	top:10.2%;
+	left:42.6%;
+}
+
+.guitarTuner .l9 {
+	background-image: url('/images/l9.png');
+	top:10.1%;
+	left:44.7%;
+}
+
+.guitarTuner .l10 {
+	background-image: url('/images/l10.png');
+	top:9.9%;
+	left:46.7%;
+}
+
+.guitarTuner .l11 {
+	background-image: url('/images/l11.png');
+	top:9.9%;
+	left:48.2%;
+}
+
+.guitarTuner .l12 {
+	background-image: url('/images/l12.png');
+	top:9.9%;
+	left:50.3%;
+}
+
+.guitarTuner .l13 {
+	background-image: url('/images/l13.png');
+	top:10.2%;
+	left:52.5%;
+}
+
+.guitarTuner .l14 {
+	background-image: url('/images/l14.png');
+	top:10.4%;
+	left:54.3%;
+}
+
+.guitarTuner .l15 {
+	background-image: url('/images/l15.png');
+	top:10.8%;
+	left:56.1%;
+}
+
+.guitarTuner .l16 {
+	background-image: url('/images/l16.png');
+	top:11.2%;
+	left:57.3%;
+}
+
+.guitarTuner .l17 {
+	background-image: url('/images/l17.png');
+	top:11.7%;
+	left:59.5%;
+}
+
+.guitarTuner .l18 {
+	background-image: url('/images/l18.png');
+	top:12.2%;
+	left:61.3%;
+}
+
+.guitarTuner .l19 {
+	background-image: url('/images/l19.png');
+	top:12.7%;
+	left:62.9%;
+}
+
+.guitarTuner .l20 {
+	background-image: url('/images/l20.png');
+	top:13.3%;
+	left:64.6%;
+}
+
+.guitarTuner .l21 {
+	background-image: url('/images/l21.png');
+	top:14.2%;
+	left:66.3%;
+}
+
+.guitarTuner .on {
+	display: block;
+}

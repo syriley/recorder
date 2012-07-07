@@ -1,0 +1,30 @@
+.mainContent{
+	margin-top: 90px;
+}
+
+.help{
+	margin-top: 50px;
+	margin-right: 9%;
+}
+
+.guitars{
+	width:290px;
+	margin:0 auto;
+
+}
+
+.time{
+
+    font-size:40px;
+    font-weight:bold;
+    padding-left:28px;
+    vertical-align: middle;
+}
+
+.footer{
+	margin-top: 45px;
+	padding: 35px 0 36px;
+	border-top: 1px solid #E5E5E5;
+	color: #555;
+	text-align: center;
+}
