@@ -1,9 +1,10 @@
 define([
     'src/views/ControlsView',
     'src/views/HeaderView',
-    'src/views/modals/HelpView'
+    'src/views/modals/HelpView',
+    'src/MusicControl'
 ],
-function(controlsView, HeaderView, HelpView){
+function(controlsView, HeaderView, HelpView, MusicControl){
     "use strict";
     return Backbone.View.extend({
         className: 'container',
@@ -45,7 +46,10 @@ function(controlsView, HeaderView, HelpView){
             });
 
             this.controlsView = new controlsView({
-                dispatcher: dispatcher
+                dispatcher: dispatcher,
+                musicControl: new MusicControl({
+                    dispatcher: dispatcher
+                })
             });   
 
             this.dispatcher.on('tuner:wakeup', this.tunerWakeup, this);

@@ -28,6 +28,10 @@ define([],
 				throw new Error('options.dispatcher must be set!');
 			}
 
+			if(!options.musicControl){
+				throw new Error('options.musicControl must be set!');
+			}
+
 			this.musicControl = options.musicControl;
 			this.dispatcher = options.dispatcher;
 
