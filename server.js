@@ -12,8 +12,11 @@ var os = require('os'),
     http = require('http'),
     express = require('express'),
     _ = require('underscore'),
+    httpProxy = require('http-proxy'),
     walker = require('walker'),
     http = require('http'),
+    proxy = new httpProxy.RoutingProxy(),
+    options,
     apiUrl;
 
 if(!module.parent){
@@ -23,6 +26,11 @@ if(!module.parent){
 if(!path.existsSync('./sessions')){
     fs.mkdirSync('./sessions', 766);
 }
+
+options = {
+    apiHost: 'local.9dials.com',
+    apiPort: 9000
+};
 
 /*
  * Helper for sending JSON responses to the client
@@ -95,6 +103,22 @@ function routing(app){
 **/
 var app = express.createServer(
     express.router(function(app){
+        app.all('/api*', function(req, res){
+            console.log('Proxying', req.url, 'to', options.apiHost +':' + options.apiPort + req.url);
+
+            proxy.proxyRequest(req, res, {
+                host: options.apiHost,
+                port: options.apiPort
+            });
+        });
+        app.all('/auth*', function(req, res){
+            console.log('Proxying', req.url, 'to', options.apiHost +':' + options.apiPort + req.url);
+
+            proxy.proxyRequest(req, res, {
+                host: options.apiHost,
+                port: options.apiPort
+            });
+        });
     }),
     express.favicon(),
     express['static'](path.join(__dirname, 'public')),

@@ -1,0 +1,16 @@
+.loginButton{
+	margin-top: 5px;
+	padding-bottom: 6px;
+	width: 200px;
+}
+
+.loginContainer{
+	width: 230px;	
+	margin: 0 auto;
+}
+
+.loginButtonText{
+	margin-top: 5px;
+	margin-left: 10px;
+	color:#555;
+}

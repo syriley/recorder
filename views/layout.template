@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" media="screen" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/controls.css">
+  <link rel="stylesheet" href="/css/login.css">
   <link rel="stylesheet" href="/css/container.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -36,14 +37,17 @@
             'mustache':  'lib/requirejs/mustache'
         }
     };
+    window.close();
+
   </script>
   <script data-main="/src/main.js" src="/lib/require.js"></script>
   <script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-31220344-1']);
-  _gaq.push(['_setDomainName', '9dials.com']);
+  _gaq.push(['_setDomainName', 'none']);
   _gaq.push(['_trackPageview']);
+  _gaq.push(['_setAllowLinker', true]);
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

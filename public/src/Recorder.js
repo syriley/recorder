@@ -12,8 +12,8 @@ define([], function(){
                 '<div style="text-align:center">' +
                     '<object id="flexRecord1" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab" height="140" width="270">' +
                         '<param name="src" value="/assets/flash/recorder.swf"/>' +
-                        '<param name="flashVars" value="uploadUrl=/api/sources"/>' +
-                        '<embed name="flexRecorder" src="/assets/flash/recorder.swf" pluginspage="http://www.adobe.com/go/getflashplayer" height="140" width="270" flashVars="uploadUrl=/api/sources"/>' +
+                        '<param name="flashVars" value="uploadUrl=/api/facebooksources"/>' +
+                        '<embed name="flexRecorder" src="/assets/flash/recorder.swf" pluginspage="http://www.adobe.com/go/getflashplayer" height="140" width="270" flashVars="uploadUrl=/api/facebooksources"/>' +
                     '</object>' +
                 '</div>' +
             '</div>' +
@@ -36,6 +36,17 @@ define([], function(){
             this.samplingEnabled = true;
 
             var self = this;
+
+            window.updateFlexProgress = function(status){
+                //console.log('flex progres update called', status);
+                self.uploadProgress(status);
+            };
+
+            window.sourceUploadComplete = function(data){
+                self.uploadComplete();
+                console.log('flex uploadComplete');
+            };
+
             window.flexSampleData = function(data){
                 self.flexSampleData(data);
             };
@@ -46,13 +57,11 @@ define([], function(){
             };
 
             window.playbackComplete = function(){
-                console.log('playbackComplete called', status);
                 self.playbackComplete();
             };
 
 
             window.flexRecorderInitialised = function(){
-                console.log('flexRecorderInitialised called');
                 self.flexRecorderInitialised();
             };
 
@@ -86,6 +95,23 @@ define([], function(){
             }
             document.flexRecorder.triggerFlexStopPlaying();  
         },
+
+        upload: function(){
+            if(!this.initialised){
+                return this.trigger('recorderNotLoaded');
+            }
+            document.flexRecorder.triggerFlexUpload();
+        },
+
+        uploadProgress: function(status){
+            this.dispatcher.trigger('recorder:uploadProgress', status);
+        },
+
+        uploadComplete: function(data){
+            console.log('triggering recorder:uploadComplete');
+            return this.dispatcher.trigger('recorder:uploadComplete', data);
+        },
+
 
         enableSampling: function(enable){
             this.samplingEnabled = enable;

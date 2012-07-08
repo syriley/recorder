@@ -7,19 +7,21 @@ define([],
 		className: 'container mainContent',
         recordImage: '/assets/images/recordDisabled.png',
         playImage: '/assets/images/play.png',
+        recordUsed: false,
         globalControlsTemplate: '<div class="row">' +
 								'<div class="well span5 offset4">' +
 									'<img src="{{recordImage}}" class="btn record" type="button" value="Play" />' +
 									'<img src="{{playImage}}" class="btn play" type="button" value="Play" />' +
 									'<span class="time">00:00:00</span>' +
-									'<a href="#" class="btn btn-primary btn-large save pull-right">Save</a>' +
+									'<a class="btn btn-primary btn-large save pull-right disabled">Save</a>' +
 								'</div>' +
 							'</div>',
 
 		events: function(){
 			return {
                 'click .record' : 'onToggleRecord',
-				'click .play' : 'onTogglePlay'
+				'click .play' : 'onTogglePlay',
+				'click .save' : 'onSaveClick'
 			};
 		},
 
@@ -43,7 +45,7 @@ define([],
 
 			this.dispatcher.on('music:stop', this.onPlaybackStopped, this);
 
-			_(this).bindAll('onTogglePlay', 'onToggleRecord');
+			_(this).bindAll('onTogglePlay', 'onToggleRecord', 'onSaveClick');
 
 		},
 
@@ -61,34 +63,63 @@ define([],
 			this.dispatcher.trigger('music:toggleRecordEnabled');
 		},
 
+
+		onTogglePlay: function(){
+			this.dispatcher.trigger('music:togglePlayback');
+		},
+
 		onRecordEnabled: function(){
 			var self = this;
+			this.recordUsed = true;
 			this.recordImage = '/assets/images/recordEnabled.png';
 			this.$('.record').attr('src', this.recordImage);
+			this.setSaveEnable(false);
 			this.startTimer();
+			this.dispatcher.trigger('music:record');
 		},
 
 		onRecordDisabled: function(){
 			this.recordImage = '/assets/images/recordDisabled.png';
 			this.$('.record').attr('src', this.recordImage);
+			this.setSaveEnable(true);
 			this.stopTimer();
+			this.dispatcher.trigger('music:stop');
 		},
 		
 		onPlaybackStarted: function(musicControlStatus){
-			this.playImage = '/assets/images/stop.png';
-			this.$('.play').attr('src', this.playImage);
-			this.startTimer();
+			if(this.recordUsed) { 
+				this.playImage = '/assets/images/stop.png';
+				this.$('.play').attr('src', this.playImage);
+				this.setSaveEnable(false);
+				this.startTimer();
+			}
 		},
 
 		onPlaybackStopped: function(musicControlStatus){
-
-			this.playImage = '/assets/images/play.png';
-			this.$('.play').attr('src', this.playImage);
-			this.stopTimer();
+			var self = this;
+			_.delay(function(){
+				self.setSaveEnable(true);
+				self.playImage = '/assets/images/play.png';
+				self.$('.play').attr('src', self.playImage);
+				self.stopTimer();
+			}, 400);
 		},
 
-		onTogglePlay: function(){
-			this.dispatcher.trigger('music:togglePlayback');
+		setSaveEnable: function(enable){
+			if(enable){
+				this.$('.save').removeClass('disabled');
+			}
+			else{
+				this.$('.save').addClass('disabled');	
+			}
+		},
+
+		onSaveClick: function(e){
+			this.saveClick();
+		},
+
+		saveClick: function(){
+			this.dispatcher.trigger('recorder:upload');
 		},
 
 		startTimer: function(){
