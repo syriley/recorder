@@ -45,19 +45,46 @@ define([], function(){
                 self.micMuted();
             };
 
+            window.playbackComplete = function(){
+                console.log('playbackComplete called', status);
+                self.playbackComplete();
+            };
+
+
             window.flexRecorderInitialised = function(){
                 console.log('flexRecorderInitialised called');
                 self.flexRecorderInitialised();
             };
 
-            this.dispatcher.bind('music:upload', this.upload, this);
+            this.dispatcher.bind('recorder:upload', this.upload, this);
             this.dispatcher.bind('recorder:enableSampling', this.enableSampling, this);
         },
         record: function(){
             if(!this.initialised){
-                return this.trigger('recorderNotLoaded');
+                return this.trigger('recorder:notLoaded');
             }
             document.flexRecorder.triggerFlexRecord();
+        },
+
+        stopRecord: function(){
+          if(!this.initialised){
+                return this.trigger('recorder:notLoaded');
+            }
+            document.flexRecorder.triggerFlexStopRecord();  
+        },
+
+        play: function(){
+          if(!this.initialised){
+                return this.trigger('recorder:notLoaded');
+            }
+            document.flexRecorder.triggerFlexPlay();  
+        },
+
+        stopPlaying: function(){
+          if(!this.initialised){
+                return this.trigger('recorder:notLoaded');
+            }
+            document.flexRecorder.triggerFlexStopPlaying();  
         },
 
         enableSampling: function(enable){
@@ -67,13 +94,18 @@ define([], function(){
         flexSampleData: function(data){
             var volumeThreshold = 0.008;
             if(this.samplingEnabled && _.max(data) > volumeThreshold) {
-               // this.dispatcher.trigger('recorder:sampleData', data);
+                this.dispatcher.trigger('recorder:sampleData', data);
             }
         },
 
         micMuted: function(){
             $('#recorderModal').css("visibility", "visible");
             $('#recorderModal').modal('show');
+        },
+
+        playbackComplete: function(){
+            console.log('stoppping');
+              this.dispatcher.trigger('recorder:stop');
         },
 
         flexRecorderInitialised: function(){

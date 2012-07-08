@@ -19,44 +19,65 @@ define(['src/Recorder'], function(Recorder){
         this.recorder = new Recorder({
             dispatcher: this.dispatcher
         });
-
         
         this.dispatcher.on('music:togglePlayback', this.togglePlayback, this);
         this.dispatcher.on('music:record', this.record, this);
+        this.dispatcher.on('music:stop', this.stop, this);
+        this.dispatcher.on('music:toggleRecordEnabled', this.toggleRecordEnabled, this);
     }
 
     _.extend(MusicControl.prototype, {
 
-        record: function(){
-            this.recorder.record();
+
+        getStatusData: function(){
+            return {
+                isRecordEnabled: this._recordEnabled || false
+            };
         },
-        stop: function(){
-            var audioContext = this.audioContext;
 
-            cancelAnimationFrame(this.updateTimeout);
+        record: function(){
+            this._recordEnabled = true;
+            this.recorder.record();
+            this.dispatcher.trigger('music:recordStarted');
+        },
 
-            _(this.playingRegions).forEach(function(r){
-                r.audio.noteOff(0);
-                r.audio.disconnect();
-            });
-            this.playingRegions = [];
-            this.audioContext = undefined;
-
-            this.dispatcher.trigger('music:stop');
-            if(this._recordEnabled){
+         stopRecord: function(){
+                this._recordEnabled = false;
                 this.recorder.stopRecord();
+
                 this.pos = this.playStartPosition;
                 this.dispatcher.trigger('music:progress');
-            }
-
-            if(!this.isPlaying()){
-                this.pos = 0;
-                this.dispatcher.trigger('music:progress');
-            }
-
-            this._playing = false;
-            this.dispatcher.trigger('music:playbackStopped', this.getStatusData());
+                this.dispatcher.trigger('music:recordStopped');
         },
+
+        play: function(){
+            this.recorder.play();
+            this._playing = true;
+            this.dispatcher.trigger('music:playbackStarted');
+        },
+
+        stopPlaying: function(){
+            this.recorder.stopPlaying();
+        },
+
+        playbackStopped: function() {
+                this._playing = false;
+                this.pos = this.playStartPosition;
+                this.dispatcher.trigger('music:progress');
+                this.dispatcher.trigger('music:playbackStopped', this.getStatusData());
+        },
+
+        stop: function(){
+            
+            if(!this.isRecordEnabled()){
+                this.stopRecord();
+            }
+
+            if(this.isPlaying()){
+                this.stopPlaying();
+            }
+        },
+
         toggleRecordEnabled: function(){
             this._recordEnabled = !this._recordEnabled;
             if(this._recordEnabled){
@@ -66,6 +87,7 @@ define(['src/Recorder'], function(Recorder){
                 this.dispatcher.trigger('music:recordDisabled');
             }
         },
+        
         togglePlayback: function(){
             if(!this._playing){
                 return this.play();

@@ -5,12 +5,12 @@ define([],
 	return Backbone.View.extend({
 
 		className: 'container mainContent',
-        recordImage: 'recordDisabled.png',
-        playImage: 'play.png',
+        recordImage: '/assets/images/recordDisabled.png',
+        playImage: '/assets/images/play.png',
         globalControlsTemplate: '<div class="row">' +
 								'<div class="well span5 offset4">' +
-									'<img src="/assets/images/{{recordImage}}" class="btn record" type="button" value="Play" />' +
-									'<img src="/assets/images/{{playImage}}" class="btn play" type="button" value="Play" />' +
+									'<img src="{{recordImage}}" class="btn record" type="button" value="Play" />' +
+									'<img src="{{playImage}}" class="btn play" type="button" value="Play" />' +
 									'<span class="time">00:00:00</span>' +
 									'<a href="#" class="btn btn-primary btn-large save pull-right">Save</a>' +
 								'</div>' +
@@ -35,18 +35,13 @@ define([],
 			this.musicControl = options.musicControl;
 			this.dispatcher = options.dispatcher;
 
-			this.dispatcher.on('session:updated', this.render, this);
-
-            this.dispatcher.on('trackView:updated', this.render, this);
-			this.dispatcher.on('trackCollectionView:trackSelected', this.trackSelected, this);
-
 			this.dispatcher.on('music:playbackStarted', this.onPlaybackStarted, this);
 			this.dispatcher.on('music:playbackStopped', this.onPlaybackStopped, this);
 
 			this.dispatcher.on('music:recordEnabled', this.onRecordEnabled, this);
 			this.dispatcher.on('music:recordDisabled', this.onRecordDisabled, this);
 
-			this.dispatcher.on('music:progress', this.updateTime, this);
+			this.dispatcher.on('music:stop', this.onPlaybackStopped, this);
 
 			_(this).bindAll('onTogglePlay', 'onToggleRecord');
 
@@ -60,77 +55,66 @@ define([],
             });
 
 			this.$el.html(globalControlsView);
-
-			if(this.selectedTrack) {
-				var track = this.selectedTrack,
-				muteClass = track.get('mute') ? 'label-important' : '',
-                soloClass = track.get('solo') ? 'label-important' : '',
-				trackControlsView = Mustache.render(this.trackControlsTemplate, {
-					muteClass: muteClass, 
-					soloClass: soloClass,
-					name: track.get('name'),
-					pan: track.get('pan'),
-					gain: track.get('gain')
-				});
-
-				this.$el.append(trackControlsView);
-			}
 		},
 
 		onToggleRecord: function(){
-			this.dispatcher.trigger('music:toggleRecordEnabled')
+			this.dispatcher.trigger('music:toggleRecordEnabled');
 		},
 
 		onRecordEnabled: function(){
-			this.recordImage = 'recordEnabled.png';
-			this.render();
+			var self = this;
+			this.recordImage = '/assets/images/recordEnabled.png';
+			this.$('.record').attr('src', this.recordImage);
+			this.startTimer();
 		},
 
 		onRecordDisabled: function(){
-			this.recordImage = 'recordDisabled.png';
-			this.render();
+			this.recordImage = '/assets/images/recordDisabled.png';
+			this.$('.record').attr('src', this.recordImage);
+			this.stopTimer();
 		},
 		
 		onPlaybackStarted: function(musicControlStatus){
-			console.log('playbackStarted');
-			this.playImage = 'stop.png';
-			this.render();
+			this.playImage = '/assets/images/stop.png';
+			this.$('.play').attr('src', this.playImage);
+			this.startTimer();
 		},
 
 		onPlaybackStopped: function(musicControlStatus){
-			this.playImage = 'play.png';
-			this.render();
-			
-			if(musicControlStatus && musicControlStatus.isRecordEnabled){
-				var uploadView = new UploadView({dispatcher:this.dispatcher});
-				uploadView.render();
-			}
+
+			this.playImage = '/assets/images/play.png';
+			this.$('.play').attr('src', this.playImage);
+			this.stopTimer();
 		},
 
 		onTogglePlay: function(){
 			this.dispatcher.trigger('music:togglePlayback');
 		},
-    
-    	trackSelected: function(track){
-			console.log('track selected', track);
-			this.selectedTrack = track;
-            this.render();
+
+		startTimer: function(){
+			var self = this,
+				time = 0,
+				interval = 100;
+		
+			this.timerId = setInterval(function(){
+				time+=interval;
+				self.updateTime(time);
+			}, interval);
 		},
 
-		changeVolume: function(volume){
-			this.selectedTrack.set({gain: volume});
-		},
-
-		changePan: function(pan){
-			this.selectedTrack.set({pan: pan});
+		stopTimer: function(){
+			var self = this;
+			_.delay(function(){
+				clearInterval(self.timerId);
+			}, 80);
 		},
 
 		updateTime: function(time){
 			if(_.isNumber(time)){
 				//TODO: throttle this to every 2/10ths of a second
-				var milliseconds = Math.floor(time % 100);
+				var milliseconds = Math.floor((time / 100) % 10);
 		        if ( milliseconds < 10 ) {
-		            milliseconds = '0' + milliseconds;
+		            milliseconds = milliseconds + '0';
 		        }
 		        var seconds = Math.floor((time/1000) % 60);
 		        if ( seconds < 10 ) {
@@ -140,7 +124,7 @@ define([],
 		        if ( minutes < 10 ) {
 		            minutes = '0' + minutes;
 		        }
-		        $('#time').html(minutes + ':' + seconds + ':' + milliseconds);
+		        this.$('.time').html(minutes + ':' + seconds + ':' + milliseconds);
 		    }
 		}
 	});

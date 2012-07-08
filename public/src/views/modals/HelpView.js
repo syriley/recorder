@@ -39,16 +39,6 @@ define([], function(){
             this.$el.modal();
         },
 
-        onWakeupClick: function(e){
-            e.preventDefault();
-            this.wakeupClick();
-        },
-
-        wakeupClick: function(){
-            this.dispatcher.trigger('tuner:wakeup');
-            this.dismiss();
-        },
-
         dismiss: function(){
             this.$el.modal('hide');
             this.remove();
