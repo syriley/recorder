@@ -1,27 +1,8 @@
-define([], function(){
+define([
+        'src/views/modals/RecorderView'
+    ], function(RecorderView){
     'use strict';
     
-    $('body').append(
-        '<div id="recorderModal" class="modal" style="visibility:hidden">' +
-            '<div class="modal-header">' +
-                '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                '<h3>Enable the Microphone</h3>' +
-            '</div>' +
-            '<div class="modal-body">' +
-                '<p>To use this tuner, you will need to allow access to the microphone.</p>' +
-                '<div style="text-align:center">' +
-                    '<object id="flexRecord1" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab" height="140" width="270">' +
-                        '<param name="src" value="/assets/flash/recorder.swf"/>' +
-                        '<param name="flashVars" value="uploadUrl=/api/facebooksources"/>' +
-                        '<embed name="flexRecorder" src="/assets/flash/recorder.swf" pluginspage="http://www.adobe.com/go/getflashplayer" height="140" width="270" flashVars="uploadUrl=/api/facebooksources"/>' +
-                    '</object>' +
-                '</div>' +
-            '</div>' +
-            '<div class="modal-footer">' +
-                '<a href="#" class="btn" data-dismiss="modal">Close</a>' +
-            '</div>' +
-        '</div>');
-
     function Recorder(options){
         this.initialize(options);
     }
@@ -32,10 +13,11 @@ define([], function(){
                 throw new Error('options.dispatcher must be defined!');
             }
 
-            this.dispatcher = options.dispatcher;
+            var self = this,
+                dispatcher = this.dispatcher = options.dispatcher;
             this.samplingEnabled = true;
 
-            var self = this;
+            
 
             window.updateFlexProgress = function(status){
                 //console.log('flex progres update called', status);
@@ -67,6 +49,11 @@ define([], function(){
 
             this.dispatcher.bind('recorder:upload', this.upload, this);
             this.dispatcher.bind('recorder:enableSampling', this.enableSampling, this);
+
+            this.recorderView = new RecorderView({
+                dispatcher: dispatcher
+            });
+            this.recorderView.render();
         },
         record: function(){
             if(!this.initialised){
@@ -79,7 +66,7 @@ define([], function(){
           if(!this.initialised){
                 return this.trigger('recorder:notLoaded');
             }
-            document.flexRecorder.triggerFlexStopRecord();  
+            document.flexRecorder.triggerFlexStopRecord();
         },
 
         play: function(){
@@ -125,8 +112,9 @@ define([], function(){
         },
 
         micMuted: function(){
-            $('#recorderModal').css("visibility", "visible");
-            $('#recorderModal').modal('show');
+            this.dispatcher.trigger('recorder:disabled');
+            //$('#recorderModal').css("visibility", "visible");
+            //$('#recorderModal').modal('show');
         },
 
         playbackComplete: function(){

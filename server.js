@@ -28,7 +28,7 @@ if(!path.existsSync('./sessions')){
 }
 
 options = {
-    apiHost: 'local.9dials.com',
+    apiHost: 'www.9dials.com',
     apiPort: 9000
 };
 
@@ -91,10 +91,8 @@ function routing(app){
      * simply renders the HTML to the client
     **/
     app.get('/', function(req, res){
-        var forwardCookies = req.headers.cookie,
-            id = req.params.id;
-
-        res.render('tuna.template', {});
+        var forwardCookies = req.headers.cookie;
+        res.render('recorder.template', {});
     });
 }
 
@@ -112,6 +110,14 @@ var app = express.createServer(
             });
         });
         app.all('/auth*', function(req, res){
+            console.log('Proxying', req.url, 'to', options.apiHost +':' + options.apiPort + req.url);
+
+            proxy.proxyRequest(req, res, {
+                host: options.apiHost,
+                port: options.apiPort
+            });
+        });
+        app.all('/login*', function(req, res){
             console.log('Proxying', req.url, 'to', options.apiHost +':' + options.apiPort + req.url);
 
             proxy.proxyRequest(req, res, {

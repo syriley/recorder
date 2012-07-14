@@ -19,7 +19,8 @@ define(['src/Recorder'], function(Recorder){
         this.recorder = new Recorder({
             dispatcher: this.dispatcher
         });
-        
+
+        this.dispatcher.on('playhead:moved', this.updatePosition, this);
         this.dispatcher.on('music:togglePlayback', this.togglePlayback, this);
         this.dispatcher.on('music:record', this.record, this);
         this.dispatcher.on('music:stop', this.stop, this);
@@ -28,7 +29,6 @@ define(['src/Recorder'], function(Recorder){
     }
 
     _.extend(MusicControl.prototype, {
-
 
         getStatusData: function(){
             return {
@@ -53,12 +53,17 @@ define(['src/Recorder'], function(Recorder){
 
         play: function(){
             this.recorder.play();
-            this._playing = true;
             this.dispatcher.trigger('music:playbackStarted');
+            this._playing = true;
         },
 
         stopPlaying: function(){
+            this._playing = false;
             this.recorder.stopPlaying();
+			this.pos = 0;
+
+            this.dispatcher.trigger('music:progress');
+            this.dispatcher.trigger('music:playbackStopped', this.getStatusData());
         },
 
         playbackStopped: function() {
@@ -70,7 +75,7 @@ define(['src/Recorder'], function(Recorder){
 
         stop: function(){
             
-            if(!this.isRecordEnabled()){
+            if(this.isRecordEnabled()){
                 this.stopRecord();
             }
 
@@ -78,7 +83,6 @@ define(['src/Recorder'], function(Recorder){
                 this.stopPlaying();
             }
         },
-
         toggleRecordEnabled: function(){
             this._recordEnabled = !this._recordEnabled;
             if(this._recordEnabled){

@@ -4,11 +4,14 @@ define([
     'src/views/HeaderView',
     'src/views/modals/HelpView',
     'src/views/modals/LoadingView',
-    'src/views/modals/LoginView',
     'src/views/modals/OauthView'
 ],
-function( MusicControl, ControlsView, HeaderView, 
-    HelpView, LoadingView, LoginView, OauthView){
+function( MusicControl, 
+          ControlsView, 
+          HeaderView, 
+          HelpView,
+          LoadingView,
+          OauthView){
     "use strict";
     return Backbone.View.extend({
         className: 'container',
@@ -55,13 +58,10 @@ function( MusicControl, ControlsView, HeaderView,
                     dispatcher: dispatcher
                 })
             });   
-            new LoadingView({
+           /*new LoadingView({
                 dispatcher: dispatcher
-            }).render();
+            }).render();*/
 
-            new LoginView({
-                dispatcher: dispatcher
-            }).render();
         },
 
         render: function(){

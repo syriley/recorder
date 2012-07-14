@@ -16,8 +16,14 @@ define([], function(){
             if(!options || !options.dispatcher){
                 throw new Error('options.dispatcher must be set!');
             }
+            var self = this;
             this.dispatcher = options.dispatcher;
             _(this).bindAll('onGoogleClick', 'onFacebookClick');
+
+             window.loginSuccessful = function(){
+                //console.log('flex progres update called', status);
+                self.loginSuccessful();
+            };
 
         },
 
@@ -66,10 +72,19 @@ define([], function(){
                  left = (screen.width/2)-(width/2),
                  title = '9dials OAuth Login',
                  top = (screen.height/2)-(height/2),
-                 options = 'toolbar=no, location=no, directories=no, status=no,' + 
+                 options = /*'toolbar=no, location=no, directories=no, status=no,' + 
                     ' menubar=no, scrollbars=no, resizable=no, ' +
-                    'copyhistory=no, width=' + width + ', height='+ height + ', top=' + top + ', left=' + left; 
+                    'copyhistory=no,*/ 'width=' + width + ', height='+ height + ', top=' + top + ', left=' + left; 
             this.openOauthWindow = window.open(url,title,options);
+        },
+
+        loginSuccessful: function(){
+            console.log('login was successful');
+            this.openOauthWindow.close();
+            this.$el.modal('hide');
+            this.dispatcher.trigger('login:successful');
+           
+            this.remove();
         }
 
     });

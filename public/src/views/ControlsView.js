@@ -115,7 +115,16 @@ define([],
 		},
 
 		onSaveClick: function(e){
-			this.saveClick();
+			if(document.cookie.search('securesocial.user') !== -1){
+				this.saveClick();
+                dispatcher.trigger('login:successful');
+            }
+            else {
+                new LoginView({
+                    dispatcher: dispatcher
+                }).render();
+            }
+			
 		},
 
 		saveClick: function(){

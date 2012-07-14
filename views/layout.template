@@ -45,7 +45,7 @@
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-31220344-1']);
-  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setDomainName', '9dials.com']);
   _gaq.push(['_trackPageview']);
   _gaq.push(['_setAllowLinker', true]);
 

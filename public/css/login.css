@@ -14,3 +14,7 @@
 	margin-left: 10px;
 	color:#555;
 }
+
+.hidden{
+	visibility: hidden;
+}
