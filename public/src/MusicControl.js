@@ -24,6 +24,7 @@ define(['src/Recorder'], function(Recorder){
         this.dispatcher.on('music:togglePlayback', this.togglePlayback, this);
         this.dispatcher.on('music:record', this.record, this);
         this.dispatcher.on('music:stop', this.stop, this);
+        this.dispatcher.on('music:stopRecord', this.stopRecord, this);
         this.dispatcher.on('music:toggleRecordEnabled', this.toggleRecordEnabled, this);
         this.dispatcher.on('recorder:stop', this.playbackStopped, this);
     }

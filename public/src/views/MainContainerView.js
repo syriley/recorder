@@ -4,14 +4,16 @@ define([
     'src/views/HeaderView',
     'src/views/modals/HelpView',
     'src/views/modals/LoadingView',
-    'src/views/modals/OauthView'
+    'src/views/modals/OauthView',
+    'src/views/SourceCollectionView'
 ],
 function( MusicControl, 
           ControlsView, 
           HeaderView, 
           HelpView,
           LoadingView,
-          OauthView){
+          OauthView,
+          SourceCollectionView){
     "use strict";
     return Backbone.View.extend({
         className: 'container',
@@ -49,7 +51,11 @@ function( MusicControl,
             this.lastActivated = new Date();
 
             this.headerView = new HeaderView({
-                dispatcher:dispatcher
+                dispatcher: dispatcher
+            });
+
+            this.sourceCollectionView = new SourceCollectionView({
+                dispatcher: dispatcher
             });
 
             this.controlsView = new ControlsView({
@@ -58,26 +64,29 @@ function( MusicControl,
                     dispatcher: dispatcher
                 })
             });   
-           /*new LoadingView({
-                dispatcher: dispatcher
-            }).render();*/
 
+            if(document.cookie.search('securesocial.user') !== -1){
+                this.dispatcher.trigger('login:successful');
+            }
         },
 
         render: function(){
             var $el = this.$el,
                 controlsView = this.controlsView,
                 headerView = this.headerView,
+                sourceCollectionView = this.sourceCollectionView,
                 bookmarkingEl = Mustache.render(this.bookmarkingTemplate, {}),
                 headerEl = Mustache.render(this.headerTemplate, {});
             
             headerView.render();
             controlsView.render();
 
+
             $el.append(headerView.$el)
-            $el.append(headerEl);
-            $el.append(controlsView.$el);
-            $el.append(bookmarkingEl);
+                .append(headerEl)
+                .append(controlsView.$el)
+                .append(sourceCollectionView.$el)
+                .append(bookmarkingEl);
         },
 
         onHelpClick: function(){
