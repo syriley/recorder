@@ -5,7 +5,8 @@ define([
     'src/views/modals/HelpView',
     'src/views/modals/LoadingView',
     'src/views/modals/OauthView',
-    'src/views/SourceCollectionView'
+    'src/views/SourceCollectionView',
+    'src/views/modals/LoginView'
 ],
 function( MusicControl, 
           ControlsView, 
@@ -13,7 +14,8 @@ function( MusicControl,
           HelpView,
           LoadingView,
           OauthView,
-          SourceCollectionView){
+          SourceCollectionView,
+          LoginView){
     "use strict";
     return Backbone.View.extend({
         className: 'container',
@@ -68,6 +70,8 @@ function( MusicControl,
             if(document.cookie.search('securesocial.user') !== -1){
                 this.dispatcher.trigger('login:successful');
             }
+
+            dispatcher.on('login:open', this.onLogin, this);
         },
 
         render: function(){
@@ -93,5 +97,11 @@ function( MusicControl,
             new HelpView({dispatcher: this.dispatcher})
                 .render();
         },
+
+        onLogin: function(){
+            new LoginView({
+                dispatcher: this.dispatcher
+            }).render();
+        }
     });
 });

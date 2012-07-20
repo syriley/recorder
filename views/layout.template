@@ -25,6 +25,7 @@
   <script src="/lib/async.js"></script>
   <script src="/lib/mustache.js"></script>
   <script src="/lib/backbone.shortcuts.js"></script>
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
   <script src="/lib/bootstrap-modal.js"></script>
   
   <script>

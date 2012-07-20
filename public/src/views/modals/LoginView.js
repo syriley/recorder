@@ -20,9 +20,9 @@ define([], function(){
             this.dispatcher = options.dispatcher;
             _(this).bindAll('onGoogleClick', 'onFacebookClick');
 
-             window.loginSuccessful = function(){
+             window.loginSuccessful = function(user){
                 //console.log('flex progres update called', status);
-                self.loginSuccessful();
+                self.loginSuccessful(user);
             };
 
         },
@@ -78,8 +78,8 @@ define([], function(){
             this.openOauthWindow = window.open(url,title,options);
         },
 
-        loginSuccessful: function(){
-            console.log('login was successful');
+        loginSuccessful: function(user){
+            console.log('login was successful', user);
             this.openOauthWindow.close();
             this.$el.modal('hide');
             this.dispatcher.trigger('login:successful');

@@ -28,7 +28,7 @@ if(!path.existsSync('./sessions')){
 }
 
 options = {
-    apiHost: 'www.9dials.com',
+    apiHost: 'local.9dials.com',
     apiPort: 9000
 };
 

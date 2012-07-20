@@ -1,5 +1,5 @@
-define(['src/views/modals/LoginView'],
-    function(LoginView){
+define([],
+    function(){
     "use strict";
     
     return Backbone.View.extend({
@@ -122,9 +122,7 @@ define(['src/views/modals/LoginView'],
             }
             else {
                 this.saveClicked = true;
-                new LoginView({
-                    dispatcher: this.dispatcher
-                }).render();
+                this.dispatcher.trigger('login:open');
             }
             
         },
