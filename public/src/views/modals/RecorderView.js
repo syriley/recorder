@@ -39,6 +39,8 @@ define([], function(){
                                             '<embed name="flexRecorder" src="/assets/flash/recorder.swf" pluginspage="http://www.adobe.com/go/getflashplayer" height="160" width="250" flashVars="uploadUrl=/api/facebooksources"/>' +
                                         '</object>' +
                                     '</div>' +
+                                    '<p>If you cannot click the allow button, please use the <a target="_blank" href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager06.html">official adobe site</a>.' +
+                                        'You will then need to restart your browser (it\'s not our fault, audio is complicated!).</p>' +
                                 '</div> ' +
                                 '<div class="modal-footer"> ' +
                                     '<a href="#" class="btn dismiss" data-dismiss="modal">Cancel</a> ' +

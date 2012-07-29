@@ -83,11 +83,12 @@ define([
             document.flexRecorder.triggerFlexStopPlaying();  
         },
 
-        upload: function(){
+        upload: function(name){
+            console.log('uploading', name);
             if(!this.initialised){
                 return this.trigger('recorderNotLoaded');
             }
-            document.flexRecorder.triggerFlexUpload();
+            document.flexRecorder.triggerFlexUpload(name);
         },
 
         uploadProgress: function(status){

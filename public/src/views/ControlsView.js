@@ -1,5 +1,5 @@
-define([],
-    function(){
+define(['src/views/modals/NameView'],
+    function(NameView){
     "use strict";
     
     return Backbone.View.extend({
@@ -128,7 +128,7 @@ define([],
         },
 
         saveClick: function(){
-            this.dispatcher.trigger('recorder:upload');
+            new NameView({dispatcher : this.dispatcher}).render();
         },
 
         startTimer: function(){

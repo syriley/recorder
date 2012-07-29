@@ -35,7 +35,7 @@ function(){
                                 '<a href="http://tuner.9dials.com" target="_blank">Tuner</a>' +
                               '</li>' +
                               '<li class="">' +
-                                '<a href="http://studio.9dials.com" target="_blank">Studio</a>' +
+                                '<a href="http://recorder.9dials.com" target="_blank">Recorder</a>' +
                               '</li>' +
                               '</ul>' +
                           '</div>' +

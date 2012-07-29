@@ -8,7 +8,6 @@ define([], function(){
         events: function(){
             return {
                 'click .wakeupButton' : 'onWakeupClick',
-                'click .dismiss' : 'dismiss'
             };
         },
 
@@ -33,7 +32,6 @@ define([], function(){
                                     'Click wakeup below to restart the tuner</p>' +
                                 '</div> ' +
                                 '<div class="modal-footer"> ' +
-                                    '<a href="#" class="btn dismiss" data-dismiss="modal">Cancel</a> ' +
                                     '<a href="#" class="btn btn-primary wakeupButton">Wakeup</a>' +
                                 '</div> ');
             this.$el.modal();
