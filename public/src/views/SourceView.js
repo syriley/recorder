@@ -18,7 +18,7 @@ define(['src/views/modals/RemoveView'
                                             '</a>' +
                                             '<ul class="dropdown-menu">' +
                                                 '<li><a>Post to your wall</a></li>' +
-                                                '<li><a>Post to someone else\'s wall</a></li>' +
+                                                '<li><a class="friendPost">Post to someone else\'s wall</a></li>' +
                                                 '<li><a>Send as a message</a></li>' +
                                             '</ul>' +
                                         '</div>' +
@@ -28,7 +28,8 @@ define(['src/views/modals/RemoveView'
 
         events: function(){
             return  {
-                        'click .remove' : 'removeSource' 
+                        'click .remove' : 'removeSource',
+                        'click .friendPost' : 'openFriendPost'
                     }
         },
 
@@ -39,9 +40,11 @@ define(['src/views/modals/RemoveView'
             
 
             this.dispatcher = options.dispatcher;
-            
-        },
 
+            this.selector = FBFriendSelector.newInstance({
+                callbackSubmit: this.sendPosts
+            });        
+        },
 
         render: function(){
             var view = Mustache.render(this.template, this.model.attributes);
@@ -49,10 +52,33 @@ define(['src/views/modals/RemoveView'
         },
 
         removeSource: function(){
-            new RemoveView({
+            new RemoveView({s
                 dispatcher: this.dispatcher,
                 sourceId: this.model.get('id')
             }).render();
+        },
+
+        openFriendPost: function(e){
+            e.preventDefault();
+            console.log('openFriendPost');
+            this.selector.showFriendSelector();
+        },
+
+        sendPosts: function(selectedFriendIds) {
+            console.log("The following friends were selected: " + selectedFriendIds.join(", "));
+            var userId = selectedFriendIds[0];
+            var data = {
+                name: "title of post",
+                caption: "caption of post",
+                description: "description of post",
+                message: "a message"
+            };
+
+            FB.api("/" + userId + "/feed", "post", data, this.postsSent);
+        },
+
+        postsSent: function(response) {
+            console.log('response', response);
         }
     });
 });

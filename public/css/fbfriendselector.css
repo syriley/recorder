@@ -1,0 +1,301 @@
+#FBFriendSelector {
+    display:none;
+    width:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:1000;
+    color:#333;
+    font-family:"lucida grande", tahoma, verdana, arial, sans-serif;
+    font-size:11px;
+    padding:10px 0 0;
+}
+
+#FBFriendSelector a,#FBFriendSelector a:active,#FBFriendSelector a:hover,#FBFriendSelector a:visited {
+    text-decoration:none;
+    color:#3B5998;
+}
+
+#FBFriendSelector p,#FBFriendSelector ul,#FBFriendSelector li {
+    margin:0;
+    padding:0;
+}
+
+#FBFriendSelector li {
+    list-style-type:none;
+}
+
+#FBFriendSelector .FBFriendSelector_clearfix:before,#FBFriendSelector .FBFriendSelector_clearfix:after {
+    content:"";
+    display:table;
+}
+
+#FBFriendSelector .FBFriendSelector_clearfix:after {
+    clear:both;
+}
+
+#FBFriendSelector .FBFriendSelector_clearfix {
+    zoom:1px;
+}
+
+#FBFriendSelector > div {
+    width:555px;
+    position:relative;
+    background:rgba(82, 82, 82, 0.7);
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    border-radius:8px;
+    margin:0 auto;
+    padding:10px;
+}
+
+#FBFriendSelector > div > a {
+    position:absolute;
+    right:18px;
+    top:14px;
+    font-size:16px;
+    display: block;
+    padding: 0px 4px;
+    line-height: 22px;
+    font-weight: bold;
+}
+
+#FBFriendSelector > div > a:hover {
+    color: #fff;
+
+}
+
+/*
+#FBFriendSelector > div > a,#FBFriendSelector > div #FBFriendSelector_buttonClose:active,#FBFriendSelector > div #FBFriendSelector_buttonClose:hover,#FBFriendSelector > div #FBFriendSelector_buttonClose:visited {
+color:#FFF;
+}
+*/
+
+#FBFriendSelector > div > div {
+    border:1px solid #3B5998;
+    background-color: #FFF;
+}
+
+#FBFriendSelector > div .FBFriendSelector_header {
+    background:#6D84B4;
+    color:#FFF;
+    font-size:14px;
+    font-weight:bold;
+    padding:7px 10px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_content {
+    background: #FFF;
+}
+
+.FBFriendSelector_searchContainer {
+    background:#f1f1f1;
+    border: 0px solid #cacaca;
+    border-bottom-width: 1px;
+    padding:10px;
+    line-height: 28px;
+    
+}
+
+#FBFriendSelector > div .FBFriendSelector_topTable {
+    width: 100%;
+}
+
+#FBFriendSelector > div .FBFriendSelector_topTable tbody tr td {
+    width: 50%;
+}
+
+#FBFriendSelector > div .FBFriendSelector_topTable tbody tr td > div {
+    position: relative;
+    height: 22px;
+}
+/*
+
+#FBFriendSelector > div .FBFriendSelector_searchContainer > span {
+    font-weight:bold;
+    float:left;
+    padding:3px 0;
+}
+*/
+
+#FBFriendSelector #FBFriendSelector_searchField {
+    float: right;
+    outline-width: 0px;
+    border: 1px solid #CCC;
+    padding: 4px;
+    width: 175px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_removeSearchFilter {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 3px;
+    color: #737373;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 15px;
+    font-weight: bold;
+    background:transparent url('/images/removefiltercross.png') no-repeat 0 0;
+}
+
+#FBFriendSelector > div .FBFriendSelector_removeSearchFilter:hover {
+    cursor: pointer;
+    background-position-y: -16px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer {
+    height: 300px;
+    margin:0;
+    overflow-y: scroll;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer ul li {
+    float: left;
+    width: 172px;
+    margin: 8px 0 0 5px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer ul li a {
+    display: block;
+    height: 30px;
+    border: 1px solid transparent;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer ul li a:hover {
+    display: block;
+    height: 30px;
+    background-color: #E7E7E7;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer ul li a.friend_selected {
+    background:#f0f0f0;
+    border: 1px solid #6D84B4;
+}
+
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer ul li a div img {
+    float: left;
+    margin-right: 5px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer ul li a div div {
+    display: table-cell;
+    vertical-align: middle;
+    height: 30px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer ul li a div input {
+    float: left;
+    margin-right: 5px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer .FBFriendSelector_friend {
+    display:block;
+    margin-bottom:2px;
+    border-bottom:1px solid #cacaca;
+    cursor:pointer;
+    padding:5px 10px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer .FBFriendSelector_friend .FBFriendSelector_friendAvatar {
+    float:left;
+    height:30px;
+    width:30px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer .FBFriendSelector_friend .FBFriendSelector_friendName {
+    float:left;
+    font-size:14px;
+    font-weight:bold;
+    position:relative;
+    width:280px;
+    padding:17px 0 17px 20px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer .FBFriendSelector_friend .FBFriendSelector_friendSelect {
+display:none;
+position:absolute;
+right:0;
+top:19px;
+text-align:right;
+color:#666;
+font-size:10px;
+font-weight:normal;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer .FBFriendSelector_friend:hover .FBFriendSelector_friendSelect {
+    display:block;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer .FBFriendSelector_friend.FBFriendSelector_friendSelected {
+    background:#f0f0f0;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer .FBFriendSelector_friend.FBFriendSelector_friendDisabled {
+cursor:default;
+opacity:.5;
+filter:alpha(opacity=50);
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+}
+
+#FBFriendSelector > div .FBFriendSelector_footer {
+    background:#F2F2F2;
+    border-top:1px solid #CACACA;
+    padding:8px 10px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_footer #FBFriendSelector_pagePrev, #FBFriendSelector > div .FBFriendSelector_footer #FBFriendSelector_pageNext {
+    float:left;
+    height:21px;
+    width:22px;
+    overflow:hidden;
+    text-indent:-999em;
+    background:transparent url(/images/FBFriendSelector.png) no-repeat 0 0;
+}
+
+#FBFriendSelector > div .FBFriendSelector_footer #FBFriendSelector_pagePrev {
+    background-position:-44px 0;
+    margin-right:2px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_footer #FBFriendSelector_pageNext {
+    margin-right:6px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_footer #FBFriendSelector_pagePrev.FBFriendSelector_disabled {
+    background-position:-66px 0;
+    cursor:default;
+}
+
+#FBFriendSelector > div .FBFriendSelector_footer #FBFriendSelector_pageNext.FBFriendSelector_disabled {
+    background-position:-22px 0;
+    cursor:default;
+}
+
+#FBFriendSelector > div .FBFriendSelector_footer > div {
+    float:left;
+    padding:4px 0 0;
+}
+
+#FBFriendSelector > div .FBFriendSelector_footer #FBFriendSelector_buttonOK {
+    float:right;
+    background:#3B5998;
+    color:#FFF;
+    border:1px solid;
+    border-color:#D9DFEA #0E1F5B #0E1F5B #D9DFEA;
+    padding:4px 20px 5px;
+}
+
+#FBFriendSelector > div .FBFriendSelector_friendsContainer .FBFriendSelector_friend.FBFriendSelector_friendDisabled:hover .FBFriendSelector_friendSelect,#FBFriendSelector > div .FBFriendSelector_friendsContainer .FBFriendSelector_friend.FBFriendSelector_friendFiltered {
+    display:none;
+}

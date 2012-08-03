@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/css/login.css">
   <link rel="stylesheet" href="/css/container.css">
   <link rel="stylesheet" href="/css/inlineplayer.css">
+  <link rel="stylesheet" href="/css/fbfriendselector.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/lib/jquery-1.7.1.min.js"><\/script>')</script>
@@ -30,6 +31,7 @@
   <script src="/lib/bootstrap-modal.js"></script>
   <script src="/lib/soundmanager2-nodebug-jsmin.js"></script>
   <script src="/lib/inlineplayer.js"></script>
+  <script src="/lib/fbfriendselector.js"></script>
   
   
   <script>
@@ -69,43 +71,51 @@
   })();
 
 </script>
-<style type="text/css">
 
-/* 
-
- -------------------------------------------------------------
-
- In-page demo CSS - see external CSS for actual relevant stuff.
-
- --------------------------------------------------------------
-
- */
-
-#soundmanager-debug {
- /* SM2 debug container (optional, makes debug more useable) */
- position:absolute;position:fixed;*position:absolute;bottom:10px;right:10px;width:50em;height:18em;overflow:auto;background:#fff;margin:1em;padding:1em;border:1px solid #999;font-family:"lucida console",verdana,tahoma,"sans serif";font-size:x-small;line-height:1.5em;opacity:0.9;filter:alpha(opacity=90);
-}
-
-</style>
 </head>
 <body>
-  <!--facebook SDK-->
   <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
-  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '351696901530052', // App ID
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+    console.log('sdfs');
+     FB.login(function(response) {
+       if (response.authResponse) {
+         console.log('Welcome!  Fetching your information.... ');
+         FB.api('/me', function(response) {
+           console.log('Good to see you, ' + response.name + '.');
+         });
+       } else {
+         console.log('User cancelled login or did not fully authorize.');
+       }
+     }, {scope: 'publish_stream'});
+
+  FBFriendSelector.init({debug: true});
+    // Additional initialization code here
+  };
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+</script>
+
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
   <header>
   </header>
   <div id="main" role="main">
       {{{yield}}}
   </div>
-
+ <div id="FBFriendSelector"></div>
  <div id="sm2-container">
   <!-- SM2 flash goes here -->
  </div>

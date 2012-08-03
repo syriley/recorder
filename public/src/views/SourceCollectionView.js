@@ -21,6 +21,7 @@ define([
             _.bindAll(this, "render");
             dispatcher.on('login:successful', this.getSources, this);
             dispatcher.on('source:remove', this.destroySource, this);
+            
         },
 
         render: function(){
