@@ -1,6 +1,7 @@
-define(['src/views/modals/RemoveView'
+define(['src/views/modals/RemoveView',
+        'src/views/modals/ShareView',
     ],
-    function(RemoveView){
+    function(RemoveView, ShareView){
     'use strict';
     
     return Backbone.View.extend({
@@ -37,9 +38,10 @@ define(['src/views/modals/RemoveView'
             if(!options.dispatcher){
                 throw new Error('options.dispatcher must be set!');
             }
-            
 
             this.dispatcher = options.dispatcher;
+            
+            _(this).bindAll('sendPosts');
 
             this.selector = FBFriendSelector.newInstance({
                 callbackSubmit: this.sendPosts
@@ -52,7 +54,7 @@ define(['src/views/modals/RemoveView'
         },
 
         removeSource: function(){
-            new RemoveView({s
+            new RemoveView({
                 dispatcher: this.dispatcher,
                 sourceId: this.model.get('id')
             }).render();
@@ -64,17 +66,11 @@ define(['src/views/modals/RemoveView'
             this.selector.showFriendSelector();
         },
 
-        sendPosts: function(selectedFriendIds) {
-            console.log("The following friends were selected: " + selectedFriendIds.join(", "));
-            var userId = selectedFriendIds[0];
-            var data = {
-                name: "title of post",
-                caption: "caption of post",
-                description: "description of post",
-                message: "a message"
-            };
-
-            FB.api("/" + userId + "/feed", "post", data, this.postsSent);
+        sendPosts: function(friendIds) {
+            new ShareView({
+                dispatcher: this.dispatcher,
+                friendIds: friendIds
+            }).render();
         },
 
         postsSent: function(response) {
