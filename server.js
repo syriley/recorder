@@ -92,7 +92,11 @@ function routing(app){
     **/
     app.get('/', function(req, res){
         var forwardCookies = req.headers.cookie;
-        res.render('recorder.template', {});
+        res.render('recorder.template', {
+            locals: {
+                baseHref: req.url
+            }
+        });
     });
 }
 
